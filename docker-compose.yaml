@@ -1,0 +1,22 @@
+# Se especifica la versión de docker-compose
+version: '3'
+
+# Se indican los servicios que se van a utilizar
+services:
+    # Servicio encargado de crear un contenedor para correr la base de datos.
+    db:
+        # Se indica la imagen que se va a utilizar para crear el contenedor.
+        image: postgres:14.5
+        # Se indica el nombre del contenedor y de la imagen que se va a crear.
+        container_name: teslodb
+        restart: always
+        # Se indica el puerto que se va a utilizar para acceder al contenedor.
+        ports:
+            - "5432:5432"
+        # Se registran las variables de entorno que se van a utilizar en el contenedor.
+        environment:
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            POSTGRES_DB: ${POSTGRES_DB}
+        volumes:
+            - ./postgres:/var/lib/postgresql/data
+
